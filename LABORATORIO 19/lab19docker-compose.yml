@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  db:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: uagro_password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: uagro_password
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - red-academica
+
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - "8080:80"
+    restart: always
+    depends_on:
+      - db
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: uagro_password
+      WORDPRESS_DB_NAME: wordpress
+    networks:
+      - red-academica
+
+networks:
+  red-academica:
+
+volumes:
+  db_data:
