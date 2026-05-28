@@ -1,0 +1,47 @@
+services:
+
+  backend-node:
+    image: node:18-alpine
+    container_name: backend-node
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=db-mariadb
+      - DB_PORT=3306
+      - DB_USER=appuser
+      - DB_PASSWORD=secretpassword
+      - DB_NAME=appdb
+    depends_on:
+      - db-mariadb
+    networks:
+      - red-publica
+      - red-privada
+
+  db-mariadb:
+    image: mariadb:10.11
+    container_name: db-mariadb
+    restart: unless-stopped
+    environment:
+      - MARIADB_ROOT_PASSWORD=rootsecret
+      - MARIADB_DATABASE=appdb
+      - MARIADB_USER=appuser
+      - MARIADB_PASSWORD=secretpassword
+    volumes:
+      - datos-mariadb:/var/lib/mysql
+    networks:
+      - red-privada
+
+networks:
+
+  red-publica:
+    driver: bridge
+
+  red-privada:
+    driver: bridge
+    internal: true
+
+volumes:
+
+  datos-mariadb:
+    driver: local
