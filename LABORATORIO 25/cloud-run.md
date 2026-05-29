@@ -1,8 +1,7 @@
 # Lab: Serverless Containers — Google Cloud Run
 
 **Alumno:** Ángel Eduardo de Jesús Castellanos Castillo  
-**Matrícula:** 19292901  
-**Materia:** Infraestructura en la Nube  
+**Matrícula:** 19292901   
 **Maestro:** Juan Miguel Hernández Ramírez  
 
 ---
